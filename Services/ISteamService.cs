@@ -40,7 +40,7 @@ namespace DaysGoneModManager.Services
         {
             try
             {
-                var webInterfaceFactory = new SteamWebInterfaceFactory("8CD98C792AD013BD08212E733B79F4AD");
+                var webInterfaceFactory = new SteamWebInterfaceFactory("<REDACTED>"); 
 
                 var steamUserInterface = webInterfaceFactory.CreateSteamWebInterface<SteamUser>(new HttpClient());
                 var steamNewsInterface = webInterfaceFactory.CreateSteamWebInterface<SteamNews>(new HttpClient());
