@@ -6,7 +6,7 @@
         xmlns:tz="http://schemas.abtsoftware.co.uk/transitionz"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DaysGoneModManager"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:st="http://schemas.spicytaco.io/"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None" AllowsTransparency="True"
@@ -129,6 +129,39 @@
 
             </Grid>
         </Grid>
+
+
+        <materialDesign:DialogHost
+					x:Name="DHost"
+					Style="{StaticResource MaterialDesignEmbeddedDialogHost}"
+					DialogMargin="8"
+					DialogTheme="Dark" Height="575" VerticalAlignment="Bottom"
+					>
+            <materialDesign:DialogHost.DialogContent>
+                <Border Padding="3" Width="500" Height="350">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.25*"/>
+                            <RowDefinition />
+                            <RowDefinition Height="0.25*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Margin="3" FontSize="21" FontWeight="DemiBold">
+									<Run Text="{Binding NotificationTitle}"/>
+                        </TextBlock>
+
+                        <TextBlock Grid.Row="1" Margin="3" FontSize="21" FontWeight="DemiBold">
+									<Run Text="{Binding NotificationBody}"/>
+                        </TextBlock>
+
+                        <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                            <Button Content="Ok" Margin="3 0" Click="NotificaitonOkClicked"/>
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
 
     </Grid>
 </Window>

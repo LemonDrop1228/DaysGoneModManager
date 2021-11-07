@@ -18,7 +18,7 @@ namespace DaysGoneModManager.Services
     public interface ISteamService
     {
         Task LoadPlayerData();
-        void InitializeService(IAppSettingsManager appSettings);
+        void InitializeService(IAppSettingsManager appSettings, INotificationService notificationService);
         SteamPlayerDataModel GetPlayerData();
         event EventHandler PlayerDataLoaded;
         void LaunchGame();
@@ -29,6 +29,7 @@ namespace DaysGoneModManager.Services
     public class SteamService : ISteamService
     {
         private IAppSettingsManager _appSettings;
+        private INotificationService _notificationService;
         public event EventHandler PlayerDataLoaded;
         SteamBrowserProtocols SteamBrowserProtocolValues { get; set; }
         private ulong SteamId { get; set; }
@@ -82,21 +83,23 @@ namespace DaysGoneModManager.Services
 
         public SteamPlayerDataModel GetPlayerData() => PlayerData;
 
-        public void InitializeService(IAppSettingsManager appSettings)
+        public void InitializeService(IAppSettingsManager appSettings, INotificationService notificationService)
         {
             _appSettings = appSettings;
-            SteamId = _appSettings.GetSteamId();
-            GameId = _appSettings.GetGameId();
+            _notificationService = notificationService;
+
+            SteamId = _appSettings.SteamId;
+            GameId = _appSettings.GameId;
             SteamBrowserProtocolValues = new();
         }
 
         public void LaunchGame() => RunProtocol(
             SteamBrowserProtocolValues.GameLaunchAddress.Uri,
-            GameId.ToString(), _appSettings.GetLaunchCommands());
+            GameId.ToString(), _appSettings.LaunchParameters);
 
         public void RunSteamProtocol(BrowserProtocols type)
         {
-            var OpenAddess = _appSettings.GetOpenInSteam()
+            var OpenAddess = _appSettings.OpenInSteam
                 ? SteamBrowserProtocolValues.OpenInSteamAddress.Uri
                 : SteamBrowserProtocolValues.OpenInPopupAddress.Uri;
 

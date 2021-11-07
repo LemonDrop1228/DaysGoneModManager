@@ -15,9 +15,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace DaysGoneModManager
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
+
     public partial class App : Application
     {
         private readonly IHost host;
@@ -31,7 +29,9 @@ namespace DaysGoneModManager
                     var appConfigData = string.Empty;
                     try
                     {
-                        appConfigData = File.ReadAllText(configPath);
+                        if(File.Exists(configPath))
+                            appConfigData = File.ReadAllText(configPath);
+
                     }
                     catch (Exception e)
                     {
@@ -44,6 +44,7 @@ namespace DaysGoneModManager
                     });
 
                     services.AddSingleton<IStartupService>(provider => new StartupService());
+                    services.AddSingleton<INotificationService>(provider => new NotificationService());
                     services.AddSingleton<IControllerService>(provider => new ControllerService());
                     services.AddSingleton<ISteamService>(provider => new SteamService());
 
@@ -59,14 +60,19 @@ namespace DaysGoneModManager
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             host.Services.GetService<ISteamService>().InitializeService(
-                host.Services.GetService<IAppSettingsManager>()
+                host.Services.GetService<IAppSettingsManager>(), host.Services.GetService<INotificationService>()
             );
 
             host.Services.GetService<IControllerService>().InitializeViews(
                 host.Services.GetServices<IBaseView>()
             );
+
             host.Services.GetService<IControllerService>().StartAtHome();
 
+            host.Services.GetService<IAppSettingsManager>().SettingsUpdated += (s, e) =>
+            {
+                System.IO.File.WriteAllText( configPath, host.Services.GetService<IAppSettingsManager>().GetSettingsJson());
+            };
 
             var mainWindow = host.Services.GetService<MainWindow>();
 

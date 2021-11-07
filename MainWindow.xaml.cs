@@ -27,6 +27,8 @@ namespace DaysGoneModManager
         private readonly IStartupService _startupService;
         private readonly IControllerService _controllerService;
         private readonly ISteamService _steamService;
+        private readonly INotificationService _notificationService;
+
         public bool LoadingComplete { get; set; }
         System.Media.SoundPlayer soundPlayer { get; set; } = new System.Media.SoundPlayer();
         public IEnumerable<ViewBucket> ViewCollection { get => _controllerService.GetViews().Select(v => new ViewBucket(v));}
@@ -41,11 +43,14 @@ namespace DaysGoneModManager
 
         public MainWindow(IStartupService startupService,
             IControllerService controllerService,
-            ISteamService steamService)
+            ISteamService steamService,
+            INotificationService notificationService)
         {
             _startupService = startupService;
             _controllerService = controllerService;
             _steamService = steamService;
+            _notificationService = notificationService;
+
 
             DataContext = this;
             InitializeComponent();
@@ -89,6 +94,11 @@ namespace DaysGoneModManager
                 soundPlayer.Play();
             };
             soundPlayer.LoadAsync();
+        }
+
+        private void NotificaitonOkClicked(object sender, RoutedEventArgs e)
+        {
+            DHost.IsOpen = false;
         }
     }
 }

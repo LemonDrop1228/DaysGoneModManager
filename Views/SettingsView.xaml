@@ -3,10 +3,68 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:DaysGoneModManager.Views"
-             mc:Ignorable="d"
+             xmlns:st="http://schemas.spicytaco.io/"
+             xmlns:local="clr-namespace:DaysGoneModManager.Views" 
+                xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+                xmlns:converters="clr-namespace:DaysGoneModManager.Converters"
+                mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <UserControl.Resources>
+        <converters:StringToBackgroundConverter x:Key="StringToBackgroundConverter"/>
+    </UserControl.Resources>
+    <Border Padding="45">
+        <ScrollViewer>
+        <st:StackPanel MarginBetweenChildren="5">
+                <materialDesign:Card Padding="20">
+                    <materialDesign:Card.Background>
+                        <ImageBrush ImageSource="../Images/BG_Paper.png"/>
+                    </materialDesign:Card.Background>
+                    <StackPanel>
+                        <TextBlock Text="Steam Id: " HorizontalAlignment="Center" FontSize="25" FontFamily="{StaticResource DKAbysmalGaze}" FontWeight="SemiBold"/>
+                        <TextBox Text="{Binding AppSettingsManager.SteamId}" MinWidth="200" HorizontalAlignment="Center" FontSize="26"/>
+                    </StackPanel>
+                </materialDesign:Card>
 
-    </Grid>
+
+                <materialDesign:Card Padding="20">
+                <materialDesign:Card.Background>
+                    <ImageBrush ImageSource="../Images/BG_Paper.png"/>
+                </materialDesign:Card.Background>
+                <StackPanel>
+                        <TextBlock Text="Mod Path: " HorizontalAlignment="Center" FontSize="25" FontFamily="{StaticResource DKAbysmalGaze}" FontWeight="SemiBold"/>
+                        <Button Content="Click to choose a folder" MaxWidth="300" 
+                                Background="{Binding AppSettingsManager.ModPath, 
+                            Converter={StaticResource StringToBackgroundConverter}}"
+                                BorderBrush="Transparent"
+                                Click="ModPathButtonClicked"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
+
+                <materialDesign:Card Padding="20">
+                    <materialDesign:Card.Background>
+                        <ImageBrush ImageSource="../Images/BG_Paper.png"/>
+                    </materialDesign:Card.Background>
+                    <StackPanel>
+                        <TextBlock Text="Launch Parameters: " HorizontalAlignment="Center" FontSize="25" FontFamily="{StaticResource DKAbysmalGaze}" FontWeight="SemiBold"/>
+                        <TextBox Text="{Binding AppSettingsManager.LaunchParameters}" MinWidth="200" HorizontalAlignment="Center" FontSize="26"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
+
+                <materialDesign:Card Padding="20">
+                    <materialDesign:Card.Background>
+                        <ImageBrush ImageSource="../Images/BG_Paper.png"/>
+                    </materialDesign:Card.Background>
+                    <st:StackPanel Orientation="Vertical" MarginBetweenChildren="7" HorizontalAlignment="Center">
+                        <TextBlock Text="Open In Steam?: " FontSize="25" FontFamily="{StaticResource DKAbysmalGaze}" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        <ToggleButton Style="{StaticResource MaterialDesignActionAccentToggleButton}" 
+                            IsChecked="{Binding AppSettingsManager.OpenInSteam}" VerticalAlignment="Top" 
+                                      Content="{materialDesign:PackIcon Kind=No}"
+                                      Margin="0 -12 0 0" Cursor="Hand"/>
+                    </st:StackPanel>
+                </materialDesign:Card>
+            </st:StackPanel>
+        </ScrollViewer>
+    </Border>    
 </local:BaseView>
