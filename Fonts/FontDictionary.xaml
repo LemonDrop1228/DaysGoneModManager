@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <FontFamily x:Key="BLOODYCRE" >/Fonts/#BLOODY CRE</FontFamily>
+    <FontFamily x:Key="DKAbysmalGaze" >/Fonts/#DK Abysmal Gaze</FontFamily>
+    <FontFamily x:Key="DKIshtar" >/Fonts/#DK Ishtar</FontFamily>
+    <FontFamily x:Key="iknowaghost" >/Fonts/#I KNOW A GHOST</FontFamily>
+    <FontFamily x:Key="faceyourfears" >/Fonts/#FACE YOUR FEARS</FontFamily>
+
+</ResourceDictionary>

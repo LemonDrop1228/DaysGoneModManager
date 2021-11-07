@@ -1,0 +1,49 @@
+﻿<local:BaseView x:Class="DaysGoneModManager.Views.AchievementsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:DaysGoneModManager.Converters"
+             xmlns:local="clr-namespace:DaysGoneModManager.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converters:UIntToColorConverter x:Key="UIntToColorConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <ScrollViewer Margin="25">
+            <ItemsControl ItemsSource="{Binding PlayerAchievements}" HorizontalContentAlignment="Stretch">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <materialDesign:Card Padding="15" MaxWidth="450">
+                            <materialDesign:Card.Background>
+                                <ImageBrush ImageSource="../Images/BG_Paper.png"/>
+                            </materialDesign:Card.Background>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.4*"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Text="{Binding Name}" FontFamily="{StaticResource faceyourfears}" FontSize="24" Grid.ColumnSpan="3"/>
+                                <materialDesign:PackIcon Kind="Achievement" Width="34" Height="34"
+                                             Foreground="{Binding Achieved, Converter={StaticResource UIntToColorConverter}}"
+                                             Grid.Column="2"
+                                             HorizontalAlignment="Right" 
+                                             VerticalAlignment="Top"/>
+                                <TextBlock Text="{Binding Description}" FontFamily="{StaticResource DKIshtar}" FontWeight="Heavy" FontSize="18"
+                                    Grid.Row="1" Grid.ColumnSpan="3" TextWrapping="Wrap"/>
+                            </Grid>
+                        </materialDesign:Card>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+    </Grid>
+</local:BaseView>

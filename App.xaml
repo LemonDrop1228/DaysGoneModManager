@@ -1,0 +1,25 @@
+﻿<Application x:Class="DaysGoneModManager.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:DaysGoneModManager"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:xamlFlair="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
+             ShutdownMode="OnExplicitShutdown" Startup="Application_Startup">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Red" SecondaryColor="Amber"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+
+                <!-- <ResourceDictionary Source="/Strings/EnglishStrings.xaml"/> -->
+                <!-- <ResourceDictionary Source="/Styles/TedStyles.xaml"/> -->
+                <!-- <ResourceDictionary Source="/Colors/CustomColors.xaml"/> -->
+
+
+                <ResourceDictionary Source="/Animations/AnimationDictionary.xaml"/>
+                <ResourceDictionary Source="/Fonts/FontDictionary.xaml"/>
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

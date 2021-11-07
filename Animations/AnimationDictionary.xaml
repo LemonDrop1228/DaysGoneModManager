@@ -1,0 +1,40 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xamlFlair="clr-namespace:XamlFlair;assembly=XamlFlair.WPF">
+
+    <xamlFlair:AnimationSettings x:Key="LogoLoadAnim"
+                                 Kind="TranslateYTo"
+                                 Duration="650"
+                                 EasingMode="EaseIn" Easing="Sine"
+                                 OffsetY="-350"/>
+
+    <xamlFlair:AnimationSettings x:Key="Stretch"
+                                 Kind="ScaleXTo"
+                                 Duration="100"
+                                 EasingMode="EaseIn" Easing="Sine"
+                                 ScaleX="1.25" ScaleY="1.25"/>
+
+    <xamlFlair:AnimationSettings x:Key="Shrink"
+                                 Kind="ScaleXTo"
+                                 Duration="100"
+                                 EasingMode="EaseIn" Easing="Sine"
+                                 ScaleX="1"/>
+
+    <xamlFlair:AnimationSettings x:Key="FadeIn"
+                                 Kind="FadeFrom"
+                                 Duration="350"
+                                 EasingMode="EaseIn" Easing="Sine"
+                                 Opacity="0"/>
+
+    <xamlFlair:AnimationSettings x:Key="ButtonHover"
+                                 Kind="ColorTo"
+                                 Duration="350"
+                                 EasingMode="EaseIn" Easing="Quadratic"
+                                 Color="#FFB00909" ColorOn="Foreground"/>
+
+    <xamlFlair:AnimationSettings x:Key="ButtonLeave"
+                                 Kind="ColorTo"
+                                 Duration="350"
+                                 EasingMode="EaseIn" Easing="Quadratic"
+                                 Color="Black" ColorOn="Foreground"/>
+</ResourceDictionary>
