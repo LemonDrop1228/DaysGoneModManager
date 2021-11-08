@@ -155,6 +155,9 @@
     <Reference Include="NexusModsNET, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\NexusModsNET.1.0.4\lib\netstandard2.0\NexusModsNET.dll</HintPath>
     </Reference>
+    <Reference Include="Notification.Wpf, Version=5.3.0.0, Culture=neutral, PublicKeyToken=1acac493089262b5, processorArchitecture=MSIL">
+      <HintPath>packages\Notification.Wpf.5.3.0\lib\net48\Notification.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="Ookii.Dialogs.Wpf, Version=4.0.0.0, Culture=neutral, PublicKeyToken=66aa232afad40158, processorArchitecture=MSIL">
       <HintPath>packages\Ookii.Dialogs.Wpf.4.0.0\lib\net45\Ookii.Dialogs.Wpf.dll</HintPath>
     </Reference>
@@ -280,6 +283,7 @@
     <Compile Include="Models\SteamPlayerDataModel.cs" />
     <Compile Include="Services\IAppSettingsManager.cs" />
     <Compile Include="Services\IControllerService.cs" />
+    <Compile Include="Services\INexusModsService.cs" />
     <Compile Include="Services\INotificationService.cs" />
     <Compile Include="Services\IStartupService.cs" />
     <Compile Include="Services\ISteamService.cs" />

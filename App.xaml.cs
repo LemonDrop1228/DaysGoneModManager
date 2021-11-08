@@ -12,6 +12,7 @@ using DaysGoneModManager.Services;
 using DaysGoneModManager.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NexusModsNET;
 
 namespace DaysGoneModManager
 {
@@ -47,6 +48,7 @@ namespace DaysGoneModManager
                     services.AddSingleton<INotificationService>(provider => new NotificationService());
                     services.AddSingleton<IControllerService>(provider => new ControllerService());
                     services.AddSingleton<ISteamService>(provider => new SteamService());
+                    services.AddSingleton<INexusModsService>(provider => new NexusModsService());
 
                     Assembly.GetEntryAssembly().GetTypesAssignableFrom<IBaseView, BaseView>().ForEach((t) =>
                     {
@@ -63,7 +65,11 @@ namespace DaysGoneModManager
                 host.Services.GetService<IAppSettingsManager>(), host.Services.GetService<INotificationService>()
             );
 
-            host.Services.GetService<IControllerService>().InitializeViews(
+            host.Services.GetService<INexusModsService>().InitializeService(
+                host.Services.GetService<IAppSettingsManager>()
+                );
+
+            host.Services.GetService<IControllerService>().InitializeService(
                 host.Services.GetServices<IBaseView>()
             );
 

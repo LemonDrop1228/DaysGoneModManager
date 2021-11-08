@@ -30,18 +30,24 @@ namespace DaysGoneModManager.Services
     {
         private IAppSettingsManager _appSettings;
         private INotificationService _notificationService;
+
         public event EventHandler PlayerDataLoaded;
         SteamBrowserProtocols SteamBrowserProtocolValues { get; set; }
         private ulong SteamId { get; set; }
         private uint GameId { get; set; }
-
         SteamPlayerDataModel PlayerData { get; set; }
 
         public async Task LoadPlayerData()
         {
+            if (SteamId == 0 || GameId == 0)
+            {
+                ShowSteamErrors();
+                return;
+            }
+
             try
             {
-                var webInterfaceFactory = new SteamWebInterfaceFactory("<REDACTED>"); 
+                var webInterfaceFactory = new SteamWebInterfaceFactory("<REDACTED>");
 
                 var steamUserInterface = webInterfaceFactory.CreateSteamWebInterface<SteamUser>(new HttpClient());
                 var steamNewsInterface = webInterfaceFactory.CreateSteamWebInterface<SteamNews>(new HttpClient());
@@ -72,13 +78,33 @@ namespace DaysGoneModManager.Services
                 steamUserInterface = null;
 
                 webInterfaceFactory = null;
+
+                PlayerDataLoaded(this, null);
+
+                _notificationService.SetNotificationContent("Steam Data", "Successfully retrieved steam data.");
+                _notificationService.NotifyInfo();
+
             }
             catch (Exception ex)
             {
-                throw;
+                _notificationService.SetNotificationContent("Steam Error", "Unable to load Steam data.");
+                _notificationService.NotifyFailure();
+            }
+        }
+
+        private async Task ShowSteamErrors()
+        {
+            if (SteamId == 0)
+            {
+                _notificationService.SetNotificationContent("Steam ID Issue", "Go to settings and update your SteamID to your profile ID.");
+                _notificationService.NotifyWarning();
+            }
+            if (GameId == 0)
+            {
+                _notificationService.SetNotificationContent("Steam ID Issue", "Go to settings and update your SteamID to your profile ID.");
+                _notificationService.NotifyWarning();
             }
 
-            PlayerDataLoaded(this, null);
         }
 
         public SteamPlayerDataModel GetPlayerData() => PlayerData;
@@ -88,9 +114,19 @@ namespace DaysGoneModManager.Services
             _appSettings = appSettings;
             _notificationService = notificationService;
 
+            _appSettings.SettingsUpdated += AppSettingsOnSettingsUpdated;
             SteamId = _appSettings.SteamId;
             GameId = _appSettings.GameId;
             SteamBrowserProtocolValues = new();
+        }
+
+        private void AppSettingsOnSettingsUpdated(object sender, EventArgs e)
+        {
+            SteamId = _appSettings.SteamId;
+            GameId = _appSettings.GameId;
+
+            if(PlayerData == null)
+                LoadPlayerData();
         }
 
         public void LaunchGame() => RunProtocol(

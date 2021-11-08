@@ -4,67 +4,161 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:st="http://schemas.spicytaco.io/"
-             xmlns:local="clr-namespace:DaysGoneModManager.Views" 
-                xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:local="clr-namespace:DaysGoneModManager.Views"
+                xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                 xmlns:converters="clr-namespace:DaysGoneModManager.Converters"
                 mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <converters:StringToBackgroundConverter x:Key="StringToBackgroundConverter"/>
     </UserControl.Resources>
-    <Border Padding="45">
-        <ScrollViewer>
-        <st:StackPanel MarginBetweenChildren="5">
-                <materialDesign:Card Padding="20">
-                    <materialDesign:Card.Background>
-                        <ImageBrush ImageSource="../Images/BG_Paper.png"/>
-                    </materialDesign:Card.Background>
-                    <StackPanel>
-                        <TextBlock Text="Steam Id: " HorizontalAlignment="Center" FontSize="25" FontFamily="{StaticResource DKAbysmalGaze}" FontWeight="SemiBold"/>
-                        <TextBox Text="{Binding AppSettingsManager.SteamId}" MinWidth="200" HorizontalAlignment="Center" FontSize="26"/>
-                    </StackPanel>
-                </materialDesign:Card>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".30*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock TextWrapping="Wrap"  Margin="20 35 0 0" HorizontalAlignment="Center" FontSize="14" FontWeight="DemiBold">
+            <Run Text="This app cannot be used until the required settings are provided:"/>
+            <LineBreak/>
+            <Run Text="- Nexus API Key &#160;&#160;"/>
+            <Hyperlink NavigateUri="https://www.nexusmods.com/users/myaccount?tab=api%20access"
+                       RequestNavigate="Hyperlink_RequestNavigate" ToolTip="https://www.nexusmods.com/users/myaccount?tab=api%20access"
+                       >(click here to get yours)</Hyperlink>
+            <LineBreak/>
+            <Run Text="- SteamId (64) &#160;&#160;"/>
+            <Hyperlink NavigateUri="https://www.thegamer.com/how-to-find-your-steam-id/"
+                       RequestNavigate="Hyperlink_RequestNavigate" ToolTip="https://www.thegamer.com/how-to-find-your-steam-id/"
+                       >(click here to see how to get yours)</Hyperlink>
+            <LineBreak/>
+            <Run Text="- Mod Path (if the button is red, click it to set the mod path;"/>
+            <LineBreak/>
+            <Run Text="&#160;
+                 &#160;&#160;&#160; It should be set to the Paks folder)"/>
+        </TextBlock>
+
+        <Border Grid.Row="1" Padding="45 0 45 45">
+            <ScrollViewer>
+                <st:StackPanel MarginBetweenChildren="5">
+                    <materialDesign:Card Padding="20">
+                        <materialDesign:Card.Background>
+                            <ImageBrush ImageSource="../Images/BG_Paper.png" />
+                        </materialDesign:Card.Background>
+                        <StackPanel>
+                            <TextBlock Text="Nexus Api Key: " HorizontalAlignment="Center" FontSize="25"
+                                       FontFamily="{StaticResource DKAbysmalGaze}" FontWeight="SemiBold" />
+                            <TextBox Text="{Binding AppSettingsManager.NexusApiKey}" MinWidth="200"
+                                     HorizontalAlignment="Center" FontSize="26" />
+                        </StackPanel>
+                    </materialDesign:Card>
 
 
-                <materialDesign:Card Padding="20">
-                <materialDesign:Card.Background>
-                    <ImageBrush ImageSource="../Images/BG_Paper.png"/>
-                </materialDesign:Card.Background>
-                <StackPanel>
-                        <TextBlock Text="Mod Path: " HorizontalAlignment="Center" FontSize="25" FontFamily="{StaticResource DKAbysmalGaze}" FontWeight="SemiBold"/>
-                        <Button Content="Click to choose a folder" MaxWidth="300" 
-                                Background="{Binding AppSettingsManager.ModPath, 
+                    <materialDesign:Card Padding="20">
+                        <materialDesign:Card.Background>
+                            <ImageBrush ImageSource="../Images/BG_Paper.png" />
+                        </materialDesign:Card.Background>
+                        <StackPanel>
+                            <TextBlock Text="Steam Id: " HorizontalAlignment="Center" FontSize="25"
+                                       FontFamily="{StaticResource DKAbysmalGaze}" FontWeight="SemiBold" />
+                            <TextBox Text="{Binding AppSettingsManager.SteamId}" MinWidth="200"
+                                     HorizontalAlignment="Center" FontSize="26" />
+                        </StackPanel>
+                    </materialDesign:Card>
+
+
+                    <materialDesign:Card Padding="20">
+                        <materialDesign:Card.Background>
+                            <ImageBrush ImageSource="../Images/BG_Paper.png" />
+                        </materialDesign:Card.Background>
+                        <StackPanel>
+                            <TextBlock Text="Game Path: " HorizontalAlignment="Center" FontSize="25"
+                                       FontFamily="{StaticResource DKAbysmalGaze}" FontWeight="SemiBold" />
+                            <Button Content="Click to choose a folder" MaxWidth="300"
+                                    Background="{Binding AppSettingsManager.GamePath,
                             Converter={StaticResource StringToBackgroundConverter}}"
-                                BorderBrush="Transparent"
-                                Click="ModPathButtonClicked"/>
-                    </StackPanel>
-                </materialDesign:Card>
+                                    BorderBrush="Transparent"
+                                    Click="GamePathButtonClicked" />
+                        </StackPanel>
+                    </materialDesign:Card>
 
 
-                <materialDesign:Card Padding="20">
-                    <materialDesign:Card.Background>
-                        <ImageBrush ImageSource="../Images/BG_Paper.png"/>
-                    </materialDesign:Card.Background>
-                    <StackPanel>
-                        <TextBlock Text="Launch Parameters: " HorizontalAlignment="Center" FontSize="25" FontFamily="{StaticResource DKAbysmalGaze}" FontWeight="SemiBold"/>
-                        <TextBox Text="{Binding AppSettingsManager.LaunchParameters}" MinWidth="200" HorizontalAlignment="Center" FontSize="26"/>
-                    </StackPanel>
-                </materialDesign:Card>
+                    <materialDesign:Card Padding="20">
+                        <materialDesign:Card.Background>
+                            <ImageBrush ImageSource="../Images/BG_Paper.png" />
+                        </materialDesign:Card.Background>
+                        <StackPanel>
+                            <TextBlock Text="Mod Path: " HorizontalAlignment="Center" FontSize="25"
+                                       FontFamily="{StaticResource DKAbysmalGaze}" FontWeight="SemiBold" />
+                            <Button Content="Click to choose a folder" MaxWidth="300"
+                                    Background="{Binding AppSettingsManager.ModPath,
+                            Converter={StaticResource StringToBackgroundConverter}}"
+                                    BorderBrush="Transparent"
+                                    Click="ModPathButtonClicked" />
+                        </StackPanel>
+                    </materialDesign:Card>
 
 
-                <materialDesign:Card Padding="20">
-                    <materialDesign:Card.Background>
-                        <ImageBrush ImageSource="../Images/BG_Paper.png"/>
-                    </materialDesign:Card.Background>
-                    <st:StackPanel Orientation="Vertical" MarginBetweenChildren="7" HorizontalAlignment="Center">
-                        <TextBlock Text="Open In Steam?: " FontSize="25" FontFamily="{StaticResource DKAbysmalGaze}" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                        <ToggleButton Style="{StaticResource MaterialDesignActionAccentToggleButton}" 
-                            IsChecked="{Binding AppSettingsManager.OpenInSteam}" VerticalAlignment="Top" 
-                                      Content="{materialDesign:PackIcon Kind=No}"
-                                      Margin="0 -12 0 0" Cursor="Hand"/>
-                    </st:StackPanel>
-                </materialDesign:Card>
-            </st:StackPanel>
-        </ScrollViewer>
-    </Border>    
+                    <materialDesign:Card Padding="20">
+                        <materialDesign:Card.Background>
+                            <ImageBrush ImageSource="../Images/BG_Paper.png" />
+                        </materialDesign:Card.Background>
+                        <StackPanel>
+                            <TextBlock Text="Launch Parameters: " HorizontalAlignment="Center" FontSize="25"
+                                       FontFamily="{StaticResource DKAbysmalGaze}" FontWeight="SemiBold" />
+                            <TextBox Text="{Binding AppSettingsManager.LaunchParameters}" MinWidth="200"
+                                     HorizontalAlignment="Center" FontSize="26" />
+                        </StackPanel>
+                    </materialDesign:Card>
+
+
+                    <materialDesign:Card Padding="20">
+                        <materialDesign:Card.Background>
+                            <ImageBrush ImageSource="../Images/BG_Paper.png" />
+                        </materialDesign:Card.Background>
+                        <st:StackPanel Orientation="Vertical" MarginBetweenChildren="7" HorizontalAlignment="Center">
+                            <TextBlock Text="Open In Steam?: " FontSize="25"
+                                       FontFamily="{StaticResource DKAbysmalGaze}" FontWeight="SemiBold"
+                                       VerticalAlignment="Center" />
+                            <ToggleButton Style="{StaticResource MaterialDesignActionAccentToggleButton}"
+                                          IsChecked="{Binding AppSettingsManager.OpenInSteam}" VerticalAlignment="Top"
+                                          Content="{materialDesign:PackIcon Kind=No}"
+                                          Margin="0 -12 0 0" Cursor="Hand" />
+                        </st:StackPanel>
+                    </materialDesign:Card>
+
+
+                    <materialDesign:Card Padding="20">
+                        <materialDesign:Card.Background>
+                            <ImageBrush ImageSource="../Images/BG_Paper.png" />
+                        </materialDesign:Card.Background>
+                        <st:StackPanel Orientation="Vertical" MarginBetweenChildren="7" HorizontalAlignment="Center">
+                            <TextBlock Text="Use UI Sounds?: " FontSize="25"
+                                       FontFamily="{StaticResource DKAbysmalGaze}" FontWeight="SemiBold"
+                                       VerticalAlignment="Center" />
+                            <ToggleButton Style="{StaticResource MaterialDesignActionAccentToggleButton}"
+                                          IsChecked="{Binding AppSettingsManager.UseUISounds}" VerticalAlignment="Top"
+                                          Content="{materialDesign:PackIcon Kind=No}"
+                                          Margin="0 -12 0 0" Cursor="Hand" />
+                        </st:StackPanel>
+                    </materialDesign:Card>
+
+
+                    <materialDesign:Card Padding="20">
+                        <materialDesign:Card.Background>
+                            <ImageBrush ImageSource="../Images/BG_Paper.png" />
+                        </materialDesign:Card.Background>
+                        <st:StackPanel Orientation="Vertical" MarginBetweenChildren="7" HorizontalAlignment="Center">
+                            <TextBlock Text="Close this on launch?: " FontSize="25"
+                                       FontFamily="{StaticResource DKAbysmalGaze}" FontWeight="SemiBold"
+                                       VerticalAlignment="Center" />
+                            <ToggleButton Style="{StaticResource MaterialDesignActionAccentToggleButton}"
+                                          IsChecked="{Binding AppSettingsManager.CloseOnPlay}" VerticalAlignment="Top"
+                                          Content="{materialDesign:PackIcon Kind=No}"
+                                          Margin="0 -12 0 0" Cursor="Hand" />
+                        </st:StackPanel>
+                    </materialDesign:Card>
+                </st:StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
 </local:BaseView>

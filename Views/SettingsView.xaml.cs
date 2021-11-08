@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Windows.Controls;
 using DaysGoneModManager.Helpers;
 using DaysGoneModManager.Services;
 using MaterialDesignThemes.Wpf;
@@ -34,7 +36,23 @@ namespace DaysGoneModManager.Views
             var dialog = new VistaFolderBrowserDialog();
             if (dialog.ShowDialog() == true)
             {
-                AppSettingsManager.ModPath = dialog.SelectedPath;
+                if(Directory.Exists(dialog.SelectedPath))
+                    AppSettingsManager.ModPath = dialog.SelectedPath;
+            }
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process.Start(e.Uri.AbsoluteUri);
+        }
+
+        private void GamePathButtonClicked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var dialog = new VistaFolderBrowserDialog();
+            if (dialog.ShowDialog() == true)
+            {
+                if (Directory.Exists(dialog.SelectedPath))
+                    AppSettingsManager.GamePath = dialog.SelectedPath;
             }
         }
     }

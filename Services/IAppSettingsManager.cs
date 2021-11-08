@@ -14,6 +14,10 @@ namespace DaysGoneModManager.Services
         ulong SteamId { get; set; }
         uint GameId { get; set; }
         bool OpenInSteam { get; set; }
+        string NexusApiKey { get; set; }
+        bool UseUISounds { get; set; }
+        bool HealthCheck { get; }
+        bool CloseOnPlay { get; set; }
 
         event EventHandler SettingsUpdated;
 
@@ -26,43 +30,65 @@ namespace DaysGoneModManager.Services
     {
         public event EventHandler SettingsUpdated;
 
+        public bool HealthCheck { get; private set; }
+
+        private bool PerformHealthCheck() => SteamId != 0 && GameId != 0 && !ModPath.NullOrEmpty() && !GamePath.NullOrEmpty() && !NexusApiKey.NullOrEmpty();
+
         public AppSettingsManager(string appSettings)
         {
             if (!appSettings.NullOrEmpty())
             {
                 AppConfigurationModel.Root configRoot = JsonConvert.DeserializeObject<AppConfigurationModel.Root>(appSettings);
-                InititializeSettings(configRoot.AppConfiguration);
+                InititializeSettings(configRoot);
             }
             else
             {
                 InititializeSettings();
             }
+
+            HealthCheck = PerformHealthCheck();
         }
 
-        private AppConfigurationModel.AppConfiguration LocalAppConfiguration { get; set; }
+        private AppConfigurationModel.Root LocalAppConfiguration { get; set; }
 
         // Initialize Settings
-        private void InititializeSettings(AppConfigurationModel.AppConfiguration config = null)
+        private void InititializeSettings(AppConfigurationModel.Root config = null)
         {
-            LocalAppConfiguration = config ?? new();
+            LocalAppConfiguration = config ?? new()
+            {
+                AppConfiguration = new()
+                {
+                    GamePath = "",
+                    SteamId = 0,
+                    LaunchCommands = "",
+                    GameId = 1259420,
+                    ModPath = "",
+                    OpenInSteam = true,
+                    NexusApiKey = "",
+                    UseUISounds = true,
+                    CloseOnPlay = false
+                }
+            };
         }
 
         public string GetSettingsJson() => JsonConvert.SerializeObject(LocalAppConfiguration, Formatting.Indented);
 
         public string GamePath
         {
-            get { return LocalAppConfiguration.GamePath; }
+            get { return LocalAppConfiguration.AppConfiguration.GamePath; }
             set
             {
-                LocalAppConfiguration.GamePath = value;
+                LocalAppConfiguration.AppConfiguration.GamePath = value;
+                HealthCheck = PerformHealthCheck();
                 SettingsUpdated?.Invoke(this, EventArgs.Empty);
             }
         }
 
         public string ModPath
         {
-            get { return LocalAppConfiguration.ModPath; }
-            set { LocalAppConfiguration.ModPath = value;
+            get { return LocalAppConfiguration.AppConfiguration.ModPath; }
+            set { LocalAppConfiguration.AppConfiguration.ModPath = value;
+                HealthCheck = PerformHealthCheck();
                 SettingsUpdated?.Invoke(this, EventArgs.Empty);
 
             }
@@ -70,40 +96,77 @@ namespace DaysGoneModManager.Services
 
         public string LaunchParameters
         {
-            get { return LocalAppConfiguration.LaunchCommands; }
+            get { return LocalAppConfiguration.AppConfiguration.LaunchCommands; }
             set
             {
-                LocalAppConfiguration.LaunchCommands = value;
+                LocalAppConfiguration.AppConfiguration.LaunchCommands = value;
+                HealthCheck = PerformHealthCheck();
+                SettingsUpdated?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public string NexusApiKey
+        {
+            get { return LocalAppConfiguration.AppConfiguration.NexusApiKey; }
+            set
+            {
+                LocalAppConfiguration.AppConfiguration.NexusApiKey = value;
+                HealthCheck = PerformHealthCheck();
                 SettingsUpdated?.Invoke(this, EventArgs.Empty);
             }
         }
 
         public ulong SteamId
         {
-            get { return LocalAppConfiguration.SteamId; }
+            get { return LocalAppConfiguration.AppConfiguration.SteamId; }
             set
             {
-                LocalAppConfiguration.SteamId = value;
+                LocalAppConfiguration.AppConfiguration.SteamId = value;
+                HealthCheck = PerformHealthCheck();
                 SettingsUpdated?.Invoke(this, EventArgs.Empty);
             }
         }
 
         public uint GameId
         {
-            get { return LocalAppConfiguration.GameId; }
+            get { return LocalAppConfiguration.AppConfiguration.GameId; }
             set
             {
-                LocalAppConfiguration.GameId = value;
+                LocalAppConfiguration.AppConfiguration.GameId = value;
+                HealthCheck = PerformHealthCheck();
                 SettingsUpdated?.Invoke(this, EventArgs.Empty);
             }
         }
 
         public bool OpenInSteam
         {
-            get { return LocalAppConfiguration.OpenInSteam; }
+            get { return LocalAppConfiguration.AppConfiguration.OpenInSteam; }
             set
             {
-                LocalAppConfiguration.OpenInSteam = value;
+                LocalAppConfiguration.AppConfiguration.OpenInSteam = value;
+                HealthCheck = PerformHealthCheck();
+                SettingsUpdated?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public bool UseUISounds
+        {
+            get { return LocalAppConfiguration.AppConfiguration.UseUISounds; }
+            set
+            {
+                LocalAppConfiguration.AppConfiguration.UseUISounds = value;
+                HealthCheck = PerformHealthCheck();
+                SettingsUpdated?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public bool CloseOnPlay
+        {
+            get { return LocalAppConfiguration.AppConfiguration.CloseOnPlay; }
+            set
+            {
+                LocalAppConfiguration.AppConfiguration.CloseOnPlay = value;
+                HealthCheck = PerformHealthCheck();
                 SettingsUpdated?.Invoke(this, EventArgs.Empty);
             }
         }

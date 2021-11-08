@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Mime;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using AnyClone;
@@ -20,13 +22,15 @@ namespace DaysGoneModManager.Views
         public object PlayerModel { get; set; }
         public ObservableCollection<SteamAction> SteamActions { get; set; }
 
+        public bool HealthCheckPass { get; set; }
+
         public ICommand RunSteamAction => new RelayCommand(o =>
         {
             (o as SteamAction).Action.Invoke();
         }, o => true);
 
 
-        public GameView(ISteamService steamService, 
+        public GameView(ISteamService steamService,
             IAppSettingsManager settingsManager)
         {
             _steamService = steamService;
@@ -35,26 +39,35 @@ namespace DaysGoneModManager.Views
             ViewMenuData = new ViewMenuData
             {
                 ViewIndex = 0,
-                ViewLabel = "GAMES",
+                ViewLabel = "GAME",
                 ViewIcon = PackIconKind.Gamepad,
                 ViewType = AppConstants.ViewTypes.Game
             };
+
+            SetHealthCheck();
 
             _steamService.PlayerDataLoaded += (sender, args) =>
             {
                 PlayerModel = _steamService.GetPlayerData();
             };
 
+            _settingsManager.SettingsUpdated += (sender, args) => { SetHealthCheck(); };
+
             DataContext = this;
             SetupSteamActions();
             InitializeComponent();
+        }
+
+        private void SetHealthCheck()
+        {
+            HealthCheckPass = _settingsManager.HealthCheck;
         }
 
         private void SetupSteamActions()
         {
             var actionList = new ObservableCollection<SteamAction>();
             var protocolArray = (BrowserProtocols[])Enum.GetValues(typeof(BrowserProtocols));
-            var actionArray = protocolArray.Select(v => new SteamAction(v.ToSpacedString(), 
+            var actionArray = protocolArray.Select(v => new SteamAction(v.ToSpacedString(),
                     () => { _steamService.RunSteamProtocol(v); }
                 ));
             actionList.AddRange<SteamAction>(actionArray.Clone());
@@ -72,6 +85,8 @@ namespace DaysGoneModManager.Views
         private void LaunchGame(object sender, System.Windows.RoutedEventArgs e)
         {
             _steamService.LaunchGame();
+            if (_settingsManager.CloseOnPlay)
+                Application.Current.Shutdown();
         }
     }
 }

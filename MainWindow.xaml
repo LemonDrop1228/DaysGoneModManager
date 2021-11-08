@@ -97,6 +97,7 @@
                                            materialDesign:ButtonAssist.CornerRadius="0"
                                            Background="Transparent" materialDesign:RippleAssist.IsDisabled="True"
                                            BorderBrush="Transparent" Foreground="Black"
+                                           IsEnabled="{Binding ViewRef.HealthCheckPass}"
                                            Height="50"
                                            FontFamily="{DynamicResource DKIshtar}" FontSize="37" FontWeight="DemiBold"
                                            xf:Animations.Primary="{xf:Animate BasedOn={StaticResource ButtonHover}, Event=MouseEnter}"
