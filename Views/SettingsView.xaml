@@ -89,11 +89,18 @@
                         <StackPanel>
                             <TextBlock Text="Mod Path: " HorizontalAlignment="Center" FontSize="25"
                                        FontFamily="{StaticResource DKAbysmalGaze}" FontWeight="SemiBold" />
-                            <Button Content="Click to choose a folder" MaxWidth="300"
-                                    Background="{Binding AppSettingsManager.ModPath,
-                            Converter={StaticResource StringToBackgroundConverter}}"
-                                    BorderBrush="Transparent"
-                                    Click="ModPathButtonClicked" />
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="Click to choose a folder" MaxWidth="300"
+                                        Background="{Binding AppSettingsManager.ModPath,
+                                Converter={StaticResource StringToBackgroundConverter}}"
+                                            BorderBrush="Transparent"
+                                            Click="ModPathButtonClicked" />
+                                <Button Content="Create" MaxWidth="300"
+                                        Background="{Binding AppSettingsManager.ModPath,
+                                Converter={StaticResource StringToBackgroundConverter}}"
+                                        BorderBrush="Transparent"
+                                        Click="GenerateModFolderButtonClicked" />
+                            </StackPanel>
                         </StackPanel>
                     </materialDesign:Card>
 

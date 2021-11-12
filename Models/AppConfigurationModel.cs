@@ -1,10 +1,13 @@
 ﻿using System;
+using System.ComponentModel;
 using Newtonsoft.Json;
+using PropertyChanged;
 
 namespace DaysGoneModManager.Models
 {
     public class AppConfigurationModel
     {
+        [AddINotifyPropertyChangedInterface]
         public class AppConfiguration
         {
             [JsonProperty("GamePath")]
@@ -22,19 +25,20 @@ namespace DaysGoneModManager.Models
             [JsonProperty("ModPath")]
             public string ModPath { get; set; }
 
-            [JsonProperty("OpenInSteam")]
+            [JsonProperty("OpenInSteam"), DefaultValue(true)]
             public bool OpenInSteam { get; set; }
 
             [JsonProperty("NexusApiKey")]
             public string NexusApiKey { get; set; }
 
-            [JsonProperty("UseUISounds")]
+            [JsonProperty("UseUISounds"), DefaultValue(true)]
             public bool UseUISounds { get; set; }
 
-            [JsonProperty("CloseOnPlay")]
+            [JsonProperty("CloseOnPlay"), DefaultValue(true)]
             public bool CloseOnPlay { get; set; }
         }
 
+        [AddINotifyPropertyChangedInterface]
         public class Root
         {
             [JsonProperty("AppConfiguration")]

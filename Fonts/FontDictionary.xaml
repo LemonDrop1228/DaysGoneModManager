@@ -6,5 +6,6 @@
     <FontFamily x:Key="DKIshtar" >/Fonts/#DK Ishtar</FontFamily>
     <FontFamily x:Key="iknowaghost" >/Fonts/#I KNOW A GHOST</FontFamily>
     <FontFamily x:Key="faceyourfears" >/Fonts/#FACE YOUR FEARS</FontFamily>
+    <FontFamily x:Key="ApocalypseGrunge" >/Fonts/#Apocalypse Grunge</FontFamily>
 
 </ResourceDictionary>

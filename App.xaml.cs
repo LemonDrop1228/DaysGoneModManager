@@ -56,6 +56,7 @@ namespace DaysGoneModManager
                     });
 
                     services.AddSingleton<MainWindow>();
+                    services.AddSingleton<MainWindowFull>();
                 }).Build();
         }
 
@@ -80,7 +81,7 @@ namespace DaysGoneModManager
                 System.IO.File.WriteAllText( configPath, host.Services.GetService<IAppSettingsManager>().GetSettingsJson());
             };
 
-            var mainWindow = host.Services.GetService<MainWindow>();
+            var mainWindow = host.Services.GetService<MainWindowFull>();
 
             mainWindow.Closed += (s, eArgs) => {
                 ShutItDown();

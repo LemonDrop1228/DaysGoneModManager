@@ -58,6 +58,10 @@
     <Reference Include="FontAwesome5.Net, Version=2.1.4.0, Culture=neutral, PublicKeyToken=9cfaf01297a008f8, processorArchitecture=MSIL">
       <HintPath>packages\FontAwesome5.2.1.4\lib\net472\FontAwesome5.Net.dll</HintPath>
     </Reference>
+    <Reference Include="Gu.Wpf.NumericInput, Version=0.5.5.0, Culture=neutral, PublicKeyToken=e6e2e1b32408e0fd">
+      <HintPath>packages\Gu.Wpf.NumericInput.0.5.5\lib\net45\Gu.Wpf.NumericInput.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Lorem.NET, Version=4.0.0.0, Culture=neutral, PublicKeyToken=ed1697c7b7619698, processorArchitecture=MSIL">
       <HintPath>packages\Lorem.Universal.NET.4.0.80\lib\net461\Lorem.NET.dll</HintPath>
     </Reference>
@@ -260,9 +264,21 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Taskbar, Version=1.0.0.4, Culture=neutral, PublicKeyToken=null">
+      <HintPath>packages\Taskbar.1.0.0.4\lib\net48\Taskbar.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Witcher, Version=1.0.0.2, Culture=neutral, PublicKeyToken=null">
+      <HintPath>packages\Witcher.1.0.0.2\lib\net48\Witcher.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Witcher.WPF, Version=1.0.0.2, Culture=neutral, PublicKeyToken=null">
+      <HintPath>packages\Witcher.WPF.1.0.0.2\lib\net48\Witcher.WPF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="XamlFlair.WPF, Version=1.2.13.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\XamlFlair.WPF.1.2.13\lib\net48\XamlFlair.WPF.dll</HintPath>
     </Reference>
@@ -279,6 +295,9 @@
     <Compile Include="Helpers\AppExtensions.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\ViewBucket.cs" />
+    <Compile Include="MainWindowFull.xaml.cs">
+      <DependentUpon>MainWindowFull.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\AppConfigurationModel.cs" />
     <Compile Include="Models\SteamPlayerDataModel.cs" />
     <Compile Include="Services\IAppSettingsManager.cs" />
@@ -323,6 +342,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MainWindowFull.xaml" />
     <Page Include="Views\AchievementsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -346,9 +366,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="Fonts\Apocalypse Grunge.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\background_wp.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sounds\PAPER- LARGE-MVMNT.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Scripts\CleanBuilds.ps1" />
     <Resource Include="Images\UserName_BG.png" />
     <Resource Include="Images\Icon.png" />
     <Resource Include="DGMM.ico" />

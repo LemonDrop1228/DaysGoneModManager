@@ -32,7 +32,8 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.6*"/>
+                    <RowDefinition Height="0.7*"/>
+                    <RowDefinition Height="0.7*"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
@@ -41,14 +42,16 @@
                     <TextBlock Text="{Binding PlayerModel.PlayerData.Nickname}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15 5 0 0"
                                        Foreground="GhostWhite" FontFamily="{DynamicResource DKIshtar}" FontSize="24" FontWeight="DemiBold"/>
                 </Grid>
+
                 <Grid Grid.Row="1"  VerticalAlignment="Top">
                     <Image Source="../Images/Panel_BG.png" />
-                    <TextBlock Text="{Binding PlayerModel.PlayTime}" VerticalAlignment="Center" 
+                    <TextBlock Text="{Binding PlayerModel.PlayTime}" VerticalAlignment="Center"
                                        HorizontalAlignment="Center" Margin="10 10 0 0"
-                                       Foreground="GhostWhite" FontFamily="{DynamicResource iknowaghost}" 
+                                       Foreground="GhostWhite" FontFamily="{DynamicResource iknowaghost}"
                                        FontSize="24" FontWeight="DemiBold"
                                        ToolTip="Time Played"/>
                 </Grid>
+
                 <Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Top">
                     <Image Source="../Images/Panel_BG.png" RenderTransformOrigin="0.5,0.5" >
                         <Image.RenderTransform>
@@ -60,11 +63,26 @@
                             </TransformGroup>
                         </Image.RenderTransform>
                     </Image>
-                    <TextBlock Text="{Binding PlayerModel.AchievementCount}" VerticalAlignment="Center" 
+                    <TextBlock Text="{Binding PlayerModel.AchievementCount}" VerticalAlignment="Center"
                                        HorizontalAlignment="Center" Margin="0 10 0 0"
-                                       Foreground="GhostWhite" FontFamily="{DynamicResource iknowaghost}" 
+                                       Foreground="GhostWhite" FontFamily="{DynamicResource iknowaghost}"
                                        FontSize="24" FontWeight="DemiBold"
                                        ToolTip="Achievements Unlocked"/>
+                </Grid>
+
+                <Grid Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" VerticalAlignment="Center">
+                    <Image Source="../Images/UserName_BG.png" RenderTransformOrigin="0.5,0.5" >
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1" ScaleX="1"/>
+                                <SkewTransform AngleY="0" AngleX="0"/>
+                                <RotateTransform Angle="0"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock Text="{Binding PlayerModel.PlayerData.Nickname}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15 0 0 0"
+                                       Foreground="GhostWhite" FontFamily="{DynamicResource DKIshtar}" FontSize="24" FontWeight="DemiBold"/>
                 </Grid>
 
             </Grid>
@@ -75,17 +93,17 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Button Content="{Binding Name}" Grid.Row="3" Grid.ColumnSpan="2" Margin="0"
-                            VerticalAlignment="Center" Foreground="Black" 
+                            VerticalAlignment="Center" Foreground="Black"
                             materialDesign:RippleAssist.IsDisabled="True" Background="Transparent" BorderBrush="Transparent"
                             Height="50" Padding="0"
                             HorizontalAlignment="Stretch" FontSize="25"
                             FontFamily="{DynamicResource faceyourfears}"
                             xf:Animations.Primary="{xf:Animate BasedOn={StaticResource ButtonHover}, Event=MouseEnter}"
                             xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource ButtonLeave}, Event=MouseLeave}"
-                            Command="{Binding Path=RunSteamAction, 
+                            Command="{Binding Path=RunSteamAction,
                             RelativeSource={RelativeSource
                             AncestorType={x:Type local:GameView}}}"
-                            CommandParameter="{Binding DataContext, 
+                            CommandParameter="{Binding DataContext,
                             RelativeSource={RelativeSource Self}}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -94,7 +112,7 @@
 
 
         <Button Content="PLAY" Grid.Row="3" Grid.ColumnSpan="2"
-                VerticalAlignment="Center" Foreground="Black" 
+                VerticalAlignment="Center" Foreground="Black"
                 materialDesign:RippleAssist.IsDisabled="True" Background="Transparent" BorderBrush="Transparent"
                 Height="100" Width="250"
                 Click="LaunchGame"

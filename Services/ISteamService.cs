@@ -47,6 +47,7 @@ namespace DaysGoneModManager.Services
 
             try
             {
+                // If you clone this repository and/or want to build this app yourself from source you need to provide a Steam API Key and replace <REDACTED> with that key...
                 var webInterfaceFactory = new SteamWebInterfaceFactory("<REDACTED>");
 
                 var steamUserInterface = webInterfaceFactory.CreateSteamWebInterface<SteamUser>(new HttpClient());

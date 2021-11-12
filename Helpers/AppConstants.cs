@@ -50,5 +50,15 @@ namespace DaysGoneModManager.Helpers
         public static readonly string SteamSettings = "settings";
 
         #endregion
+
+        #region Mod Constants
+
+        public static readonly string AppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        public static readonly string GameAppDataPath = $"{AppDataPath}\\BendGame\\";
+        public static readonly string GameAppDataPaksPath = $"{GameAppDataPath}\\Paks";
+        public static readonly string SFPaksPathPart = "\\BendGame\\Content\\sfpaks\\startuppackages.pak";
+        public static readonly string GameExePathPart = "\\BendGame\\Binaries\\Win64\\DaysGone.exe";
+
+        #endregion
     }
 }

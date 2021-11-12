@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using DaysGoneModManager.Helpers;
 using DaysGoneModManager.Services;
 using MaterialDesignThemes.Wpf;
@@ -32,6 +35,18 @@ namespace DaysGoneModManager.Views
 
             DataContext = this;
             InitializeComponent();
+
+            DataObject.AddPastingHandler(ModIdBox, PasteHandler);
+        }
+
+        private void PasteHandler(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(String)))
+            {
+                var s = (String) e.DataObject.GetData(typeof(String));
+                if(s.All(char.IsNumber) == false)
+                    e.CancelCommand();
+            }
         }
 
         private void SetHealthCheck()
@@ -42,6 +57,11 @@ namespace DaysGoneModManager.Views
         private async void ModView_OnLoaded(object sender, RoutedEventArgs e)
         {
             await _modsService.TestClients();
+        }
+
+        private void ModIdInputPrev(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !e.Text.All(char.IsNumber);
         }
     }
 }

@@ -49,7 +49,7 @@ namespace DaysGoneModManager.Views
 
         private void _steamService_PlayerDataLoaded(object sender, EventArgs e)
         {
-            PlayerAchievements = _steamService.GetPlayerData().Achievements;
+            PlayerAchievements = _steamService.GetPlayerData().AchievementsSorted;
         }
     }
 }
